@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:we_live_chat_app/authentication/authenticating.dart';
+import 'package:we_live_chat_app/authentication/create_user.dart';
+import 'package:we_live_chat_app/authentication/login.dart';
 import 'package:we_live_chat_app/views/bookings.dart';
 import 'package:we_live_chat_app/views/chat.dart';
 import 'package:we_live_chat_app/views/home_view.dart';
 import 'package:we_live_chat_app/views/info_splash.dart';
+import 'package:we_live_chat_app/views/journal_view.dart';
 import 'package:we_live_chat_app/views/profile_user.dart';
 import 'package:we_live_chat_app/views/user_home.dart';
 
@@ -14,6 +17,9 @@ class RouteManager {
   static const String homeChat = 'homeChat';
   static const String userProfile = 'userProfile';
   static const String bookings = 'bookings';
+  static const String journalScreen = 'journalScreen';
+  static const String loginScreen = 'loginScreen';
+  static const String createUser = 'createUser';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -45,6 +51,21 @@ class RouteManager {
       case bookings:
         return MaterialPageRoute(
           builder: (context) => Bookings(),
+        );
+
+      case journalScreen:
+        return MaterialPageRoute(
+          builder: (context) => JournalView(),
+        );
+
+      case loginScreen:
+        return MaterialPageRoute(
+          builder: (context) => LoginScreen(),
+        );
+
+      case createUser:
+        return MaterialPageRoute(
+          builder: (context) => CreateAccount(),
         );
 
       default:

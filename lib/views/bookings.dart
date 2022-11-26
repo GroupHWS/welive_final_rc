@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:we_live_chat_app/common/constant.dart';
 
 class Bookings extends StatefulWidget {
   const Bookings({Key? key}) : super(key: key);
@@ -21,7 +23,9 @@ class _BookingsState extends State<Bookings> {
         automaticallyImplyLeading: false,
         title: const Text('Booking Page'),
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () => {
+              Navigator.popAndPushNamed(context, 'userHome')
+            },
             icon: const Icon(Icons.arrow_back_ios_new, size: 25)),
       ),
       body: Container(
@@ -52,7 +56,7 @@ class _BookingsState extends State<Bookings> {
                     //color: Colors.red,
 
                     // reviewed and changed to lottie animations
-                    child: Image.asset('assets/weLive.jpg'),
+                    child: Image.asset('assets/images/Picture1.jpg'),
                   )
                 ],
               ),
@@ -61,7 +65,8 @@ class _BookingsState extends State<Bookings> {
               ),
               Text(
                 'Book Your Consultation',
-                style: TextStyle(fontSize: 34),
+                style: GoogleFonts.playfairDisplay(
+                                  textStyle: style14Blue, color: Colors.white),
               ),
               Center(
                 child: Container(
@@ -81,7 +86,7 @@ class _BookingsState extends State<Bookings> {
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(40),
                   ),
-                  onPressed: () {},
+                  onPressed: () => {},
                   child: const Text('Book now '),
                 ),
               )

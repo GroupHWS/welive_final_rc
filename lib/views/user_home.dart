@@ -8,7 +8,8 @@ import 'package:we_live_chat_app/common/constant.dart';
 import 'package:we_live_chat_app/utils/profcard_util.dart';
 import 'package:we_live_chat_app/views/chat.dart';
 import 'package:we_live_chat_app/widgets/home_widget.dart';
-
+// Needs to be reworked 
+// connection to firebase required
 class UserHome extends StatefulWidget {
   @override
   State<UserHome> createState() => _UserHomeState();
@@ -40,9 +41,9 @@ class _UserHomeState extends State<UserHome> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {
+            onPressed: () => {
               //
-              //
+              Navigator.pushNamed(context, 'userProfile')
               //
               //
             },
@@ -161,11 +162,16 @@ class _UserHomeState extends State<UserHome> {
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: Center(
-                                        child: Text(
-                                      'Get Started',
-                                      style: GoogleFonts.playfairDisplay(
-                                          textStyle: style14Blue),
-                                    )),
+                                        child: InkWell(
+                                          onTap: () => {
+                                            Navigator.pushNamed(context, 'journalScreen'),
+                                          },
+                                          child: Text(
+                                                                              'Get Started',
+                                                                              style: GoogleFonts.playfairDisplay(
+                                            textStyle: style14Blue),
+                                                                            ),
+                                        )),
                                   ),
                                 )
                               ],
@@ -208,7 +214,7 @@ class _UserHomeState extends State<UserHome> {
                                 onTap: () => {
                                   //
                                   //
-
+                                  Navigator.popAndPushNamed(context, 'bookings'),
                                   //
                                   //
                                 },
@@ -218,10 +224,9 @@ class _UserHomeState extends State<UserHome> {
                                 ),
                               ),
                               InkWell(
-                                onTap: () {
+                                onTap: () => {
                                   //
-                                  //
-                                  //
+                                  
                                   //
                                 },
                                 child: HomeWidget(
@@ -230,9 +235,10 @@ class _UserHomeState extends State<UserHome> {
                                 ),
                               ),
                               InkWell(
-                                onTap: () {
+                                onTap: () => {
                                   //
                                   //
+                                  Navigator.pushNamed(context, 'loginScreen'),
                                   //
                                   //
                                 },
@@ -244,7 +250,7 @@ class _UserHomeState extends State<UserHome> {
                               InkWell(
                                 onTap: () => {
                                   //
-                                  Navigator.pushNamed(context, 'homeChat')
+                                  Navigator.pushNamed(context, 'loginScreen'),
                                   //
                                 },
                                 child: HomeWidget(
