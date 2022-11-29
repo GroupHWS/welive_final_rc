@@ -127,8 +127,22 @@ class _GroupInfoState extends State<GroupInfo> {
     final Size size = MediaQuery.of(context).size;
 
     return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0xFF701ebd),
+            Color(0xFF873bcc),
+            Color(0xFFfe4a97),
+            Color(0xFFe17763),
+            Color(0xFF68998c),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.transparent,
           body: isLoading
               ? Container(
                   height: size.height,

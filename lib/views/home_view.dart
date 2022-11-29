@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:we_live_chat_app/authentication/models_methods.dart';
 import 'package:we_live_chat_app/groups/friends_chat_view.dart';
 import 'package:we_live_chat_app/views/chat.dart';
@@ -59,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
     await _firestore
         .collection('users')
-        .where("email", isEqualTo: _search.text)
+        .where("name", isEqualTo: _search.text)
         .get()
         .then((value) {
       setState(() {
@@ -93,6 +94,17 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           title: Text("Home Screen"),
+           leading: IconButton(
+          /* 214077489 - back arrow fuctionality */
+          onPressed: () =>{
+            Navigator.pushNamed(context,'userHome'),
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            size: 22,
+            color: Colors.white,
+          ),
+        ),
           actions: [
             IconButton(
                 icon: Icon(Icons.logout), onPressed: () => logOut(context))

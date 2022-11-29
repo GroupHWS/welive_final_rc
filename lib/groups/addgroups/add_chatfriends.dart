@@ -48,7 +48,7 @@ class _AddMembersInGroupState extends State<AddMembersInGroup> {
 
     await _firestore
         .collection('users')
-        .where("email", isEqualTo: _search.text)
+        .where("name", isEqualTo: _search.text)
         .get()
         .then((value) {
       setState(() {
@@ -94,89 +94,105 @@ class _AddMembersInGroupState extends State<AddMembersInGroup> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Add Members"),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0xFF701ebd),
+            Color(0xFF873bcc),
+            Color(0xFFfe4a97),
+            Color(0xFFe17763),
+            Color(0xFF68998c),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              child: ListView.builder(
-                itemCount: membersList.length,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    onTap: () => onRemoveMembers(index),
-                    leading: Icon(Icons.account_circle),
-                    title: Text(membersList[index]['name']),
-                    subtitle: Text(membersList[index]['email']),
-                    trailing: Icon(Icons.close),
-                  );
-                },
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text("Add Members"),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                child: ListView.builder(
+                  itemCount: membersList.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      onTap: () => onRemoveMembers(index),
+                      leading: Icon(Icons.account_circle),
+                      title: Text(membersList[index]['name']),
+                      subtitle: Text(membersList[index]['email']),
+                      trailing: Icon(Icons.close),
+                    );
+                  },
+                ),
               ),
-            ),
-            SizedBox(
-              height: size.height / 20,
-            ),
-            Container(
-              height: size.height / 14,
-              width: size.width,
-              alignment: Alignment.center,
-              child: Container(
+              SizedBox(
+                height: size.height / 20,
+              ),
+              Container(
                 height: size.height / 14,
-                width: size.width / 1.15,
-                child: TextField(
-                  controller: _search,
-                  decoration: InputDecoration(
-                    hintText: "Search",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                width: size.width,
+                alignment: Alignment.center,
+                child: Container(
+                  height: size.height / 14,
+                  width: size.width / 1.15,
+                  child: TextField(
+                    controller: _search,
+                    decoration: InputDecoration(
+                      hintText: "Search",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: size.height / 50,
-            ),
-            isLoading
-                ? Container(
-                    height: size.height / 12,
-                    width: size.height / 12,
-                    alignment: Alignment.center,
-                    child: CircularProgressIndicator(),
-                  )
-                : ElevatedButton(
-                    onPressed: onSearch,
-                    child: Text("Search"),
-                  ),
-            userMap != null
-                ? ListTile(
-                    onTap: onResultTap,
-                    leading: Icon(Icons.account_box),
-                    title: Text(userMap!['name']),
-                    subtitle: Text(userMap!['email']),
-                    trailing: Icon(Icons.add),
-                  )
-                : SizedBox(),
-          ],
+              SizedBox(
+                height: size.height / 50,
+              ),
+              isLoading
+                  ? Container(
+                      height: size.height / 12,
+                      width: size.height / 12,
+                      alignment: Alignment.center,
+                      child: CircularProgressIndicator(),
+                    )
+                  : ElevatedButton(
+                      onPressed: onSearch,
+                      child: Text("Search"),
+                    ),
+              userMap != null
+                  ? ListTile(
+                      onTap: onResultTap,
+                      leading: Icon(Icons.account_box),
+                      title: Text(userMap!['name']),
+                      subtitle: Text(userMap!['email']),
+                      trailing: Icon(Icons.add),
+                    )
+                  : SizedBox(),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: membersList.length >= 2
-          ? FloatingActionButton(
-              child: Icon(Icons.forward),
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => CreateGroup(
-                    membersList: membersList,
+        floatingActionButton: membersList.length >= 2
+            ? FloatingActionButton(
+                child: Icon(Icons.forward),
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => CreateGroup(
+                      membersList: membersList,
+                    ),
                   ),
                 ),
-              ),
-            )
-          : SizedBox(),
+              )
+            : SizedBox(),
+      ),
     );
   }
 }

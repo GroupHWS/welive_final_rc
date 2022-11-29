@@ -36,68 +36,87 @@ class _JournalViewState extends State<JournalView>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            // search and menu
-             SearchAndMenu(),
-            const SizedBox(height: 30.0),
+    return Container(
+      
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0xFF701ebd),
+            Color(0xFF873bcc),
+            Color(0xFFfe4a97),
+            Color(0xFFe17763),
+            Color(0xFF68998c),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          
+          child: Column(
+            children: [
+              // search and menu
+              SearchAndMenu(),
+              const SizedBox(height: 30.0),
 
-            // year selector
-            DropdownButton(
-              value: '2022',
-              items: const [
-                DropdownMenuItem(value: '2022', child: Text('2022'))
-              ],
-              onChanged: (value) {},
-            ),
-            const SizedBox(height: 30.0),
+              // year selector
+              DropdownButton(
+                value: '2022',
+                items: const [
+                  DropdownMenuItem(value: '2022', child: Text('2022'))
+                ],
+                onChanged: (value) {},
+              ),
+              const SizedBox(height: 30.0),
 
-            // month cards
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 22.0),
-                child: PageView.builder(
-                  controller: PageController(
-                    initialPage: 0,
-                    viewportFraction: 0.78,
-                  ),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 12, // for 12 months
-                  itemBuilder: (_, i) => AnimatedBuilder(
-                      animation: controller,
-                      builder: (_, child) {
-                        if (controller.value >= 0.5) {
-                          isFrontView = false;
-                        } else {
-                          isFrontView = true;
-                        }
+              // month cards
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 22.0),
+                  child: PageView.builder(
+                    controller: PageController(
+                      initialPage: 0,
+                      viewportFraction: 0.78,
+                    ),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 12, // for 12 months
+                    itemBuilder: (_, i) => AnimatedBuilder(
+                        animation: controller,
+                        builder: (_, child) {
+                          if (controller.value >= 0.5) {
+                            isFrontView = false;
+                          } else {
+                            isFrontView = true;
+                          }
 
-                        return Transform(
-                          transform: Matrix4.identity()
-                            ..setEntry(3, 2, 0.001)
-                            ..rotateY(controller.value * pi),
-                          alignment: Alignment.center,
-                          child: isFrontView
-                              ? FrontView(monthIndex: i + 1)
-                              : Transform(
-                                  transform: Matrix4.rotationY(pi),
-                                  alignment: Alignment.center,
-                                  child: BackView(
-                                    monthIndex: i + 1,
+                          return Transform(
+                            transform: Matrix4.identity()
+                              ..setEntry(3, 2, 0.001)
+                              ..rotateY(controller.value * pi),
+                            alignment: Alignment.center,
+                            child: isFrontView
+                                ? FrontView(monthIndex: i + 1)
+                                : Transform(
+                                    transform: Matrix4.rotationY(pi),
+                                    alignment: Alignment.center,
+                                    child: BackView(
+                                      monthIndex: i + 1,
+                                    ),
                                   ),
-                                ),
-                        );
-                      }),
+                          );
+                        }),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 30.0),
-            // action buttons
-            ActionButtons(change: switchView),
-            const SizedBox(height: 75.0),
-          ],
+              const SizedBox(height: 30.0),
+              // action buttons
+              ActionButtons(change: switchView),
+              const SizedBox(height: 75.0),
+            ],
+          ),
         ),
       ),
     );

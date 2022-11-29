@@ -8,7 +8,8 @@ import 'package:we_live_chat_app/common/constant.dart';
 import 'package:we_live_chat_app/utils/profcard_util.dart';
 import 'package:we_live_chat_app/views/chat.dart';
 import 'package:we_live_chat_app/widgets/home_widget.dart';
-// Needs to be reworked 
+
+// Needs to be reworked
 // connection to firebase required
 class UserHome extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class UserHome extends StatefulWidget {
 }
 
 class _UserHomeState extends State<UserHome> {
+  // add code
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,17 +41,11 @@ class _UserHomeState extends State<UserHome> {
           ),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () => {
-              //
-              Navigator.pushNamed(context, 'userProfile')
-              //
-              //
-            },
-            icon: const Icon(Icons.settings_suggest_outlined, size: 25),
-          ),
-        ],
+         actions: [
+            IconButton(
+                icon: Icon(Icons.settings), onPressed: () => {Navigator.pushNamed(context, 'editProfile')})
+          ],
+       
       ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) {
@@ -163,15 +159,16 @@ class _UserHomeState extends State<UserHome> {
                                     ),
                                     child: Center(
                                         child: InkWell(
-                                          onTap: () => {
-                                            Navigator.pushNamed(context, 'journalScreen'),
-                                          },
-                                          child: Text(
-                                                                              'Get Started',
-                                                                              style: GoogleFonts.playfairDisplay(
+                                      onTap: () => {
+                                        Navigator.pushNamed(
+                                            context, 'journalScreen'),
+                                      },
+                                      child: Text(
+                                        'Get Started',
+                                        style: GoogleFonts.playfairDisplay(
                                             textStyle: style14Blue),
-                                                                            ),
-                                        )),
+                                      ),
+                                    )),
                                   ),
                                 )
                               ],
@@ -214,7 +211,8 @@ class _UserHomeState extends State<UserHome> {
                                 onTap: () => {
                                   //
                                   //
-                                  Navigator.popAndPushNamed(context, 'bookings'),
+                                  Navigator.popAndPushNamed(
+                                      context, 'bookings'),
                                   //
                                   //
                                 },
@@ -226,7 +224,7 @@ class _UserHomeState extends State<UserHome> {
                               InkWell(
                                 onTap: () => {
                                   //
-                                  
+                                  Navigator.pushNamed(context, 'profProfile'),
                                   //
                                 },
                                 child: HomeWidget(

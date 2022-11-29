@@ -51,7 +51,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.centerRight,
                       width: size.width / 0.5,
                       child: IconButton(
-                          icon: Icon(Icons.help_center), onPressed: () {}),
+                          icon: Icon(Icons.home),
+                          onPressed: () =>
+                              {Navigator.pushNamed(context, 'userHome')}),
                     ),
                     SizedBox(
                       height: size.height / 50,

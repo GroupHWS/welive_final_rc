@@ -12,11 +12,10 @@ class SearchAndMenu extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.search_rounded),
-            iconSize: 30.0,
-          ),
+          
+            IconButton(
+                icon: Icon(Icons.home), onPressed: () => {Navigator.pushNamed(context, 'userHome')})
+          ,
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.short_text_rounded),
