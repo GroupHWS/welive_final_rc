@@ -31,7 +31,7 @@ class _AddMembersInGroupState extends State<AddMembersInGroup> {
         .get()
         .then((map) {
       setState(() {
-        membersList.add({
+        friendsList.add({
           "name": map['name'],
           "email": map['email'],
           "uid": map['uid'],
@@ -62,15 +62,15 @@ class _AddMembersInGroupState extends State<AddMembersInGroup> {
   void onResultTap() {
     bool isAlreadyExist = false;
 
-    for (int i = 0; i < membersList.length; i++) {
-      if (membersList[i]['uid'] == userMap!['uid']) {
+    for (int i = 0; i < friendsList.length; i++) {
+      if (friendsList[i]['uid'] == userMap!['uid']) {
         isAlreadyExist = true;
       }
     }
 
     if (!isAlreadyExist) {
       setState(() {
-        membersList.add({
+        friendsList.add({
           "name": userMap!['name'],
           "email": userMap!['email'],
           "uid": userMap!['uid'],
@@ -83,9 +83,9 @@ class _AddMembersInGroupState extends State<AddMembersInGroup> {
   }
 
   void onRemoveMembers(int index) {
-    if (membersList[index]['uid'] != _auth.currentUser!.uid) {
+    if (friendsList[index]['uid'] != _auth.currentUser!.uid) {
       setState(() {
-        membersList.removeAt(index);
+        friendsList.removeAt(index);
       });
     }
   }
