@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class AddMembersINGroup extends StatefulWidget {
   final String groupChatId, name;
-  final List membersList;
+  final List friendsList;
   const AddMembersINGroup(
       {required this.name,
-      required this.membersList,
+      required this.friendsList,
       required this.groupChatId,
       Key? key})
       : super(key: key);
@@ -20,13 +20,13 @@ class _AddMembersINGroupState extends State<AddMembersINGroup> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   Map<String, dynamic>? userMap;
   bool isLoading = false;
-  List membersList = [];
+  List friendsList = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    membersList = widget.membersList;
+    friendsList = widget.friendsList;
   }
 
   void onSearch() async {
@@ -48,10 +48,10 @@ class _AddMembersINGroupState extends State<AddMembersINGroup> {
   }
 
   void onAddMembers() async {
-    membersList.add(userMap);
+   friendsList.add(userMap);
 
     await _firestore.collection('groups').doc(widget.groupChatId).update({
-      "members": membersList,
+      "friends": friendsList,
     });
 
     await _firestore
@@ -84,7 +84,7 @@ class _AddMembersINGroupState extends State<AddMembersINGroup> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          title: Text("Add Members"),
+          title: Text("Add Friends"),
         ),
         body: SingleChildScrollView(
           child: Column(
