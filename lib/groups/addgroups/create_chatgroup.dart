@@ -5,9 +5,9 @@ import 'package:uuid/uuid.dart';
 import 'package:we_live_chat_app/views/home_view.dart';
 
 class CreateGroup extends StatefulWidget {
-  final List<Map<String, dynamic>> membersList;
+  final List<Map<String, dynamic>> friendsList;
 
-  const CreateGroup({required this.membersList, Key? key}) : super(key: key);
+  const CreateGroup({required this.friendsList, Key? key}) : super(key: key);
 
   @override
   State<CreateGroup> createState() => _CreateGroupState();
@@ -27,12 +27,12 @@ class _CreateGroupState extends State<CreateGroup> {
     String groupId = Uuid().v1();
 
     await _firestore.collection('groups').doc(groupId).set({
-      "members": widget.membersList,
+      "friends": widget.friendsList,
       "id": groupId,
     });
 
-    for (int i = 0; i < widget.membersList.length; i++) {
-      String uid = widget.membersList[i]['uid'];
+    for (int i = 0; i < widget.friendsList.length; i++) {
+      String uid = widget.friendsList[i]['uid'];
 
       await _firestore
           .collection('users')
