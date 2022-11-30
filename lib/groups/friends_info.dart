@@ -14,7 +14,7 @@ class GroupInfo extends StatefulWidget {
 }
 
 class _GroupInfoState extends State<GroupInfo> {
-  List membersList = [];
+  List friendsList = [];
   bool isLoading = true;
 
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -33,7 +33,7 @@ class _GroupInfoState extends State<GroupInfo> {
         .doc(widget.groupId)
         .get()
         .then((chatMap) {
-      membersList = chatMap['members'];
+      friendsList = chatMap['friends'];
       print(membersList);
       isLoading = false;
       setState(() {});
@@ -43,7 +43,7 @@ class _GroupInfoState extends State<GroupInfo> {
   bool checkAdmin() {
     bool isAdmin = false;
 
-    membersList.forEach((element) {
+    friendsList.forEach((element) {
       if (element['uid'] == _auth.currentUser!.uid) {
         isAdmin = element['isAdmin'];
       }
@@ -52,7 +52,7 @@ class _GroupInfoState extends State<GroupInfo> {
   }
 
   Future removeMembers(int index) async {
-    String uid = membersList[index]['uid'];
+    String uid = friendsList[index]['uid'];
 
     setState(() {
       isLoading = true;
@@ -60,7 +60,7 @@ class _GroupInfoState extends State<GroupInfo> {
     });
 
     await _firestore.collection('groups').doc(widget.groupId).update({
-      "members": membersList,
+      "friends": friendsList,
     }).then((value) async {
       await _firestore
           .collection('users')
@@ -77,7 +77,7 @@ class _GroupInfoState extends State<GroupInfo> {
 
   void showDialogBox(int index) {
     if (checkAdmin()) {
-      if (_auth.currentUser!.uid != membersList[index]['uid']) {
+      if (_auth.currentUser!.uid != friendsList[index]['uid']) {
         showDialog(
             context: context,
             builder: (context) {
@@ -98,14 +98,14 @@ class _GroupInfoState extends State<GroupInfo> {
         isLoading = true;
       });
 
-      for (int i = 0; i < membersList.length; i++) {
-        if (membersList[i]['uid'] == _auth.currentUser!.uid) {
-          membersList.removeAt(i);
+      for (int i = 0; i < friendsList.length; i++) {
+        if (friendsList[i]['uid'] == _auth.currentUser!.uid) {
+          friendsList.removeAt(i);
         }
       }
 
       await _firestore.collection('groups').doc(widget.groupId).update({
-        "members": membersList,
+        "friends": friendsList,
       });
 
       await _firestore
